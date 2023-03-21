@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FunctionalPrograming.Models;
 
-namespace FunctionalPrograming
+namespace FunctionalPrograming.Concept
 {
     internal class HigherOrderFunction
     {
@@ -31,7 +31,8 @@ namespace FunctionalPrograming
          * that is why we will pass this function as an input to the discount function to be calculated inside it.
          */
 
-        public static void HigherOrderFunctionExample() {
+        public static void HigherOrderFunctionExample()
+        {
             //Delegate => شخص مندوب عن شخص
             //         => strong Type function pointer
             //         => A place in the memory points to the place where the function is stored
@@ -39,7 +40,7 @@ namespace FunctionalPrograming
             Func<double, double> DlgtTest1 = Test1;
             Func<double, double> DlgtTest2 = Test2;
 
-            List<Func<double,double>> funcs = new List<Func<double, double>>()
+            List<Func<double, double>> funcs = new List<Func<double, double>>()
             {
                 DlgtTest1 , DlgtTest2
             };
@@ -53,19 +54,19 @@ namespace FunctionalPrograming
             Console.WriteLine(funcs[1](5));
 
             //Higher Order Function (Function that uses delegates)
-            Console.WriteLine(Test3(Test1,5));
+            Console.WriteLine(Test3(Test1, 5));
             Console.WriteLine(Test3(Test2, 5));
 
         }
 
         public static double Test1(double x)
         {
-            return x/2;
+            return x / 2;
         }
 
         public static double Test2(double x)
         {
-            return x/4 + 1;
+            return x / 4 + 1;
         }
 
         /// <summary>
@@ -74,8 +75,9 @@ namespace FunctionalPrograming
         /// <param name="func">Pointer to a function that takes double as input and gives double as output</param>
         /// <param name="number">Double value parameter</param>
         /// <returns>Double value that is the result fron func execution using number as input added to numbre</returns>
-        public static double Test3(Func<double, double> func, double number) {
-        return func(number) + number;
+        public static double Test3(Func<double, double> func, double number)
+        {
+            return func(number) + number;
         }
 
 
@@ -84,7 +86,7 @@ namespace FunctionalPrograming
         private static Func<int, (double x1, double x2)> B = ProductParametersBeverage;
         private static Func<int, (double x1, double x2)> C = ProductParametersRawMatrial;
 
-        private static Order R = new Order
+        private static Order R = new Order()
         {
             OrderID = 10,
             ProductIndex = 100,
@@ -103,20 +105,20 @@ namespace FunctionalPrograming
                 Type = ProductType.Food
             };
 
-            Func<int, (double x1, double x2)> GetProductType = (product.Type == ProductType.Food)? A : (product.Type == ProductType.Beverage)? B : C;
+            Func<int, (double x1, double x2)> GetProductType = product.Type == ProductType.Food ? A : product.Type == ProductType.Beverage ? B : C;
             Console.WriteLine("For the Product: " + product);
             Console.WriteLine("For the Order: " + R);
-            Console.WriteLine(CalculateDiscount(GetProductType,R));
+            Console.WriteLine(CalculateDiscount(GetProductType, R));
         }
 
-        private static double CalculateDiscount(Func<int, (double x1,double x2)> productParameterCalc, Order order)
+        private static double CalculateDiscount(Func<int, (double x1, double x2)> productParameterCalc, Order order)
         {
             // Tuple => 2017
             (double x1, double x2) parameters = productParameterCalc(order.ProductIndex);
             return parameters.x1 * order.Quantity + parameters.x2 * order.UnitPrice;
         }
 
-        private static (double x1,double x2) ProductParametersFood(int producrtIndex)
+        private static (double x1, double x2) ProductParametersFood(int producrtIndex)
         {
             return (x1: producrtIndex / (double)(producrtIndex + 100),
                 x2: producrtIndex / (double)(producrtIndex + 300));

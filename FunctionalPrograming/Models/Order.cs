@@ -13,9 +13,22 @@ namespace FunctionalPrograming.Models
         public int Quantity { get; set; }
         public double UnitPrice { get; set; }
 
+        public decimal Discount { get; set; }
         public override string ToString()
         {
             return $"OrderID = {OrderID}, ProductIndex = {ProductIndex}, Quantity = {Quantity}, UnitPrice = {UnitPrice}";
+        }
+        public Order(Order order)
+        {
+            this.OrderID = order.OrderID ;
+            this.ProductIndex = order.ProductIndex ;
+            this.Quantity = order.Quantity ;
+            this.UnitPrice = order.UnitPrice ;
+            this.Discount = order.Discount ;
+        }
+        public Order()
+        {
+            
         }
     }
 }

@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
-namespace FunctionalPrograming
+namespace FunctionalPrograming.Concept
 {
     internal class PiplineProblemOne
     {
-        static List<double> numbers ;
+        static List<double> numbers;
         static PiplineProblemOne()
         {
             numbers = new() { 2, 8, 6, 7, 5, 9 };
@@ -36,7 +36,8 @@ namespace FunctionalPrograming
         public static void DoTransformationImparative()
         {
             Console.WriteLine("Imparative way of doing things:");
-            foreach (var number in numbers) { 
+            foreach (var number in numbers)
+            {
                 Console.WriteLine(SubtractTen(Square(AddOne(number))));
             }
             Console.WriteLine("=====================");
@@ -46,7 +47,7 @@ namespace FunctionalPrograming
         {
             Console.WriteLine("Declarative way of doing things:");
             Console.WriteLine("Three sucessive calls.");
-            numbers.Select(AddOne).Select(Square).Select(SubtractTen).ToList().ForEach(x=>Console.WriteLine(x));
+            numbers.Select(AddOne).Select(Square).Select(SubtractTen).ToList().ForEach(x => Console.WriteLine(x));
             Console.WriteLine("=====================");
 
             // uses two concepts:
@@ -57,7 +58,7 @@ namespace FunctionalPrograming
              *                           give a function as output or both
              */
 
-            
+
         }
 
         private static double AddOne(double number)
