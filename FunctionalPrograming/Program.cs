@@ -1,4 +1,4 @@
-﻿using FunctionalPrograming;
+﻿using FunctionalPrograming.Concept;
 
 internal class Program
 {
